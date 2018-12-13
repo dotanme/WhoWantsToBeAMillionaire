@@ -5,7 +5,7 @@
       </div>
       <hr>
       <div class="row">
-            <label class="col-5 mx-auto text-center answer radio" id="answer{{j}}"
+            <label class="col-lg-5 col-ms-12 mx-auto text-center answer radio" id="answer{{j}}"
             *ngFor="let answer of questions[indexQuestion]?.answers; let j = index "
             [ngClass]="(selectedEntry === j && !questions[indexQuestion]?.isAnswered)?'selected':''">
                 <input type="radio" name="answer1" [value]="j" [disabled]="questions[indexQuestion].isAnswered"
@@ -14,17 +14,17 @@
         </div>
         <div class="text-center row">
             <ng-container *ngIf="isGameOver; else OK">
-                    <button (click)="resetGame()" class="btn btn-ok btn-ok-enabled col-4 mx-auto">Restart</button>
+                    <button (click)="resetGame()" class="btn btn-ok btn-ok-enabled col-ms-12 col-lg-4 mx-auto">Restart</button>
             </ng-container>
 
             <ng-template #OK>
                 <ng-container *ngIf="!questions[indexQuestion].isAnswered; else Continue">
-                    <button class="btn btn-ok col-4 mx-auto" 
+                    <button class="btn btn-ok col-lg-4 col-ms-12 mx-auto" 
                     [ngClass]="{'btn-ok-enabled': selectedEntry > -1}" 
                     (click)="checkAnswer(selectedEntry)">OK</button>
                 </ng-container>
                 <ng-template #Continue>
-                    <button class="btn btn-ok col-4 mx-auto" 
+                    <button class="btn btn-ok col-lg-4 col-ms-12 mx-auto" 
                     [ngClass]="{'btn-ok-enabled': selectedEntry > -1}"
                     (click)="nextQuestion()">Continue</button>
                 </ng-template>

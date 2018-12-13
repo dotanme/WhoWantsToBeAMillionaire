@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../../models/Question';
 import { QuestionsService } from '../../services/questions.service';
+import { AppState } from '../../app.state';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as ScoreActions from '../../actions/score.actions';
 
 @Component({
   selector: 'app-question',
@@ -13,8 +17,10 @@ export class QuestionComponent implements OnInit {
   selectedEntry = -1;
   isLoaded = false;
   isGameOver = false;
+  score: Observable<number>;
 
-  constructor(private questionService: QuestionsService ) {
+  constructor(private questionService: QuestionsService, private store: Store<AppState> ) {
+    this.score = this.store.select('score');
   }
 
   ngOnInit() {
@@ -31,9 +37,11 @@ export class QuestionComponent implements OnInit {
       const DOM_img = document.createElement('img');
       if (answer) {
         body.classList.add('answer-correct');
+        this.store.dispatch(new ScoreActions.Increment({ amount: 10}));
         DOM_img.src = '/assets/Group.png';
       } else {
         body.classList.add('answer-incorrect');
+        this.store.dispatch(new ScoreActions.Decrement({ amount: 5}));
         DOM_img.src = '/assets/Group 3.png';
       }
       body.insertBefore(DOM_img, body.firstChild);
@@ -57,6 +65,7 @@ resetGame() {
   this.isLoaded = false;
   this.questionService.getQuestions().subscribe(questions => {
     this.questions = questions;
+    this.store.dispatch(new ScoreActions.Reset);
     this.isLoaded = true;
     this.isGameOver = false;
   });

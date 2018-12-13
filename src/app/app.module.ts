@@ -8,6 +8,9 @@ import { QuestionsService } from './services/questions.service';
 import { QuestionComponent } from './component/question/question.component';
 import { DecodeHtmlStringPipe } from './pipes/decode-html-string.pipe';
 
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './reducers/score.reducer';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +21,9 @@ import { DecodeHtmlStringPipe } from './pipes/decode-html-string.pipe';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    StoreModule.forRoot({
+      score: reducer
+    })
   ],
   providers: [QuestionsService],
   bootstrap: [AppComponent]
