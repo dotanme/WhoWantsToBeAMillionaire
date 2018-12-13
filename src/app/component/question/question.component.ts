@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../../models/Question';
 import { QuestionsService } from '../../services/questions.service';
-import { CurrencyIndex } from '@angular/common/src/i18n/locale_data';
 
 @Component({
   selector: 'app-question',
@@ -9,15 +8,19 @@ import { CurrencyIndex } from '@angular/common/src/i18n/locale_data';
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
-  questions: Question[];
+  questions: Question[] = [];
   indexQuestion = 0;
-  selectedEntry;
+  selectedEntry = -1;
+  isLoaded = false;
+  isGameOver = false;
 
-  constructor(private questionService: QuestionsService) { }
+  constructor(private questionService: QuestionsService ) {
+  }
 
   ngOnInit() {
     this.questionService.getQuestions().subscribe(questions => {
       this.questions = questions;
+      this.isLoaded = true;
     });
   }
   checkAnswer(answerIndex) {
@@ -25,12 +28,16 @@ export class QuestionComponent implements OnInit {
       const answer = this.questions[this.indexQuestion].answers[answerIndex].isCorrect;
       this.questions[this.indexQuestion].isAnsweredCorrect = answer;
       const body = document.getElementById('answer' + this.selectedEntry);
-      // body.classList.remove("className");
+      const DOM_img = document.createElement('img');
       if (answer) {
         body.classList.add('answer-correct');
+        DOM_img.src = '/assets/Group.png';
       } else {
         body.classList.add('answer-incorrect');
+        DOM_img.src = '/assets/Group 3.png';
       }
+      body.insertBefore(DOM_img, body.firstChild);
+      // body.appendChild(DOM_img);
       this.questions[this.indexQuestion].isAnswered = true;
     }
   }
@@ -38,11 +45,23 @@ export class QuestionComponent implements OnInit {
     this.selectedEntry = entry;
 }
 nextQuestion() {
-
   if (this.questions[this.indexQuestion + 1] != null) {
     this.indexQuestion++;
+    this.selectedEntry = -1;
+  } else {
+    this.isGameOver = true;
+  }
+}
+
+resetGame() {
+  this.isLoaded = false;
+  this.questionService.getQuestions().subscribe(questions => {
+    this.questions = questions;
+    this.isLoaded = true;
+    this.isGameOver = false;
+  });
+  this.indexQuestion = 0;
   this.selectedEntry = -1;
- }
 }
 
 }

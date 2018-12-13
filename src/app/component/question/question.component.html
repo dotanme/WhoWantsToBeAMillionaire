@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="isLoaded">
   <div>
       <div class="row">
             <h3 class="mx-auto text-center"><span class="q-number">Q:{{indexQuestion+1}} </span>{{questions[indexQuestion].question | decodeHtmlString}}</h3>
@@ -6,26 +6,32 @@
       <hr>
       <div class="row">
             <label class="col-5 mx-auto text-center answer radio" id="answer{{j}}"
-            [ngClass]="(selectedEntry === j && !questions[indexQuestion].isAnswered)?'selected':''"
-            *ngFor="let answer of questions[indexQuestion].answers; let j = index">
-                <input type="radio"name="answer1" [value]="j" [disabled]="questions[indexQuestion].isAnswered"
+            *ngFor="let answer of questions[indexQuestion]?.answers; let j = index "
+            [ngClass]="(selectedEntry === j && !questions[indexQuestion]?.isAnswered)?'selected':''">
+                <input type="radio" name="answer1" [value]="j" [disabled]="questions[indexQuestion].isAnswered"
                 (change)="onSelectionChange(j)">{{answer.answer | decodeHtmlString}}
             </label>
         </div>
-        <div class="text-center">
-            <div class="row" *ngIf="!questions[indexQuestion].isAnswered; else Continue">
-                <button class="btn btn-ok col-4 mx-auto" 
-                [ngClass]="{'btn-ok-enabled': selectedEntry > -1}" 
-                (click)="checkAnswer(selectedEntry)">OK</button>
-            </div>
-            <ng-template #Continue>
-                <button class="btn btn-ok col-4 mx-auto" 
-                [ngClass]="{'btn-ok-enabled': selectedEntry > -1}"
-                (click)="nextQuestion()">Continue</button>
+        <div class="text-center row">
+            <ng-container *ngIf="isGameOver; else OK">
+                    <button (click)="resetGame()" class="btn btn-ok btn-ok-enabled col-4 mx-auto">Restart</button>
+            </ng-container>
+
+            <ng-template #OK>
+                <ng-container *ngIf="!questions[indexQuestion].isAnswered; else Continue">
+                    <button class="btn btn-ok col-4 mx-auto" 
+                    [ngClass]="{'btn-ok-enabled': selectedEntry > -1}" 
+                    (click)="checkAnswer(selectedEntry)">OK</button>
+                </ng-container>
+                <ng-template #Continue>
+                    <button class="btn btn-ok col-4 mx-auto" 
+                    [ngClass]="{'btn-ok-enabled': selectedEntry > -1}"
+                    (click)="nextQuestion()">Continue</button>
+                </ng-template>
             </ng-template>
         </div>
     </div>
     <div class="text-center">
-        <i class="fas fa-circle dot" [ngClass]="(indexQuestion ==j || question.isAnswered)?'dot-answered':'dot-not-answered'" *ngFor="let question of questions;let j = index"></i>
+        <i class="fas fa-circle dot" [ngClass]="(indexQuestion == j || question.isAnswered)?'dot-answered':'dot-not-answered'" *ngFor="let question of questions;let j = index"></i>
     </div>
 </div>

@@ -5,10 +5,16 @@
   background: #FAFAFA;
   border: 2px solid #D9E6EB;
   border-radius: 23px;
-  padding: 39px 130px;
+  font-size: 28px;
+  font-weight: 500;
+  color: #496472;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 164px; 
+  /* padding: 39px; */
   margin: 10px 10px;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 164px;
 }
 
 .answer-correct{
@@ -47,6 +53,7 @@
 
 .selected  {
   border: 4px solid #0D7BAB;
+  color:#0D7BAB;
 }
 input {
   visibility:hidden;
@@ -58,12 +65,13 @@ input {
   letter-spacing: 0;
 }
 
-.dor{
-  margin:0 10px;
+.dot{
+  margin:7px 7px;
 }
 .dot-answered {
   color: #0D7BAB;
 }
 
 .dot-not-answered {
-  color: #C9CFD3;}
+  color: #C9CFD3;
+}
