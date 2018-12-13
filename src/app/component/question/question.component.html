@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div>
+      <div class="row">
+            <h3 class="mx-auto text-center"><span class="q-number">Q:{{indexQuestion+1}} </span>{{questions[indexQuestion].question | decodeHtmlString}}</h3>
+      </div>
+      <hr>
+      <div class="row">
+            <label class="col-5 mx-auto text-center answer radio" id="answer{{j}}"
+            [ngClass]="(selectedEntry === j && !questions[indexQuestion].isAnswered)?'selected':''"
+            *ngFor="let answer of questions[indexQuestion].answers; let j = index">
+                <input type="radio"name="answer1" [value]="j" [disabled]="questions[indexQuestion].isAnswered"
+                (change)="onSelectionChange(j)">{{answer.answer | decodeHtmlString}}
+            </label>
+        </div>
+        <div class="text-center">
+            <div class="row" *ngIf="!questions[indexQuestion].isAnswered; else Continue">
+                <button class="btn btn-ok col-4 mx-auto" 
+                [ngClass]="{'btn-ok-enabled': selectedEntry > -1}" 
+                (click)="checkAnswer(selectedEntry)">OK</button>
+            </div>
+            <ng-template #Continue>
+                <button class="btn btn-ok col-4 mx-auto" 
+                [ngClass]="{'btn-ok-enabled': selectedEntry > -1}"
+                (click)="nextQuestion()">Continue</button>
+            </ng-template>
+        </div>
+    </div>
+    <div class="text-center">
+        <i class="fas fa-circle dot" [ngClass]="(indexQuestion ==j || question.isAnswered)?'dot-answered':'dot-not-answered'" *ngFor="let question of questions;let j = index"></i>
+    </div>
+</div>

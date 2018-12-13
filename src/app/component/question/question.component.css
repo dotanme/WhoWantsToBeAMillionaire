@@ -1,0 +1,69 @@
+.container-fluid{
+  margin: 70px 0;
+}
+.answer{
+  background: #FAFAFA;
+  border: 2px solid #D9E6EB;
+  border-radius: 23px;
+  padding: 39px 130px;
+  margin: 10px 10px;
+  width:100%;
+  height:100%;
+}
+
+.answer-correct{
+  color: #33C933;
+  border: 4px solid #33C933;
+}
+
+.answer-incorrect{
+  color: #FB4343;
+  border: 4px solid #FB4343;
+}
+
+.btn-ok-enabled{
+  background: #F68034;
+}
+
+.btn-ok-disabled{
+  background: #F0F0F0;
+}
+.btn-ok{
+  border-radius: 100px;
+  font-size: 30px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.answer:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+.btn-ok:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+.selected  {
+  border: 4px solid #0D7BAB;
+}
+input {
+  visibility:hidden;
+}
+
+.q-number{
+  font-size: 32px;
+  color: #0D7BAB;
+  letter-spacing: 0;
+}
+
+.dor{
+  margin:0 10px;
+}
+.dot-answered {
+  color: #0D7BAB;
+}
+
+.dot-not-answered {
+  color: #C9CFD3;}
