@@ -1,3 +1,4 @@
+// score state reducer
 import { ScoreActions, ScoreActionTypes } from '../actions/score.actions';
 
 export const initialState = 0;

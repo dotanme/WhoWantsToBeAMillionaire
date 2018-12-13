@@ -1,3 +1,5 @@
+// score state actions
+
 import { Action } from '@ngrx/store';
 
 export enum ScoreActionTypes {

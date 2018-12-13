@@ -1,8 +1,11 @@
+// pipe to parse special characters
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'decodeHtmlString'
 })
+
 export class DecodeHtmlStringPipe implements PipeTransform {
 
   transform(value: string) {

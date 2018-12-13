@@ -19,6 +19,7 @@ export class Question {
     this.shuffle(this.answers);
 
   }
+  // shuffles the answers, 'Fisher-Yates (aka Knuth) Shuffle'
   private shuffle(a) {
     let j, x, i;
     for (i = a.length - 1; i > 0; i--) {

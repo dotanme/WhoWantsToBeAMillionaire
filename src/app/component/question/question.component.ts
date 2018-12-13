@@ -24,15 +24,18 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit() {
+    // loads new question
     this.questionService.getQuestions().subscribe(questions => {
       this.questions = questions;
       this.isLoaded = true;
     });
   }
   checkAnswer(answerIndex) {
+    // checks if the answer is correct or not
     if (this.selectedEntry > -1  && this.questions[this.indexQuestion] != null) {
       const answer = this.questions[this.indexQuestion].answers[answerIndex].isCorrect;
       this.questions[this.indexQuestion].isAnsweredCorrect = answer;
+      // styling wrong or correct
       const body = document.getElementById('answer' + this.selectedEntry);
       const DOM_img = document.createElement('img');
       if (answer) {
@@ -45,7 +48,6 @@ export class QuestionComponent implements OnInit {
         DOM_img.src = '/assets/Group 3.png';
       }
       body.insertBefore(DOM_img, body.firstChild);
-      // body.appendChild(DOM_img);
       this.questions[this.indexQuestion].isAnswered = true;
     }
   }
@@ -53,6 +55,7 @@ export class QuestionComponent implements OnInit {
     this.selectedEntry = entry;
 }
 nextQuestion() {
+  // move to next question
   if (this.questions[this.indexQuestion + 1] != null) {
     this.indexQuestion++;
     this.selectedEntry = -1;
@@ -62,6 +65,7 @@ nextQuestion() {
 }
 
 resetGame() {
+  // resets the state of the game, load new questions
   this.isLoaded = false;
   this.questionService.getQuestions().subscribe(questions => {
     this.questions = questions;

@@ -1,9 +1,11 @@
 <div class="container-fluid" *ngIf="isLoaded">
   <div>
+      <!-- Question text -->
       <div class="row">
             <h3 class="mx-auto text-center"><span class="q-number">Q:{{indexQuestion+1}} </span>{{questions[indexQuestion].question | decodeHtmlString}}</h3>
       </div>
       <hr>
+      <!-- Answers options -->
       <div class="row">
             <label class="col-lg-5 col-ms-12 mx-auto text-center answer radio" id="answer{{j}}"
             *ngFor="let answer of questions[indexQuestion]?.answers; let j = index "
@@ -12,6 +14,8 @@
                 (change)="onSelectionChange(j)">{{answer.answer | decodeHtmlString}}
             </label>
         </div>
+
+        <!-- replace the OK button with Continue or Reset -->
         <div class="text-center row">
             <ng-container *ngIf="isGameOver; else OK">
                     <button (click)="resetGame()" class="btn btn-ok btn-ok-enabled col-ms-12 col-lg-4 mx-auto">Restart</button>
@@ -31,6 +35,8 @@
             </ng-template>
         </div>
     </div>
+
+    <!-- current question dots -->
     <div class="text-center">
         <i class="fas fa-circle dot" [ngClass]="(indexQuestion == j || question.isAnswered)?'dot-answered':'dot-not-answered'" *ngFor="let question of questions;let j = index"></i>
     </div>

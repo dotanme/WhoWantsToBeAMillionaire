@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Score } from './models/score.model';
 import { AppState } from './app.state';
 
 @Component({
