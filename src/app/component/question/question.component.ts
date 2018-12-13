@@ -28,7 +28,7 @@ export class QuestionComponent implements OnInit {
     this.questionService.getQuestions().subscribe(questions => {
       this.questions = questions;
       this.isLoaded = true;
-    });
+    }, error => console.log(error));
   }
   checkAnswer(answerIndex) {
     // checks if the answer is correct or not
@@ -72,7 +72,7 @@ resetGame() {
     this.store.dispatch(new ScoreActions.Reset);
     this.isLoaded = true;
     this.isGameOver = false;
-  });
+  }, error => console.log(error));
   this.indexQuestion = 0;
   this.selectedEntry = -1;
 }
